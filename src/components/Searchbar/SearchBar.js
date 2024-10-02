@@ -1,14 +1,27 @@
-import { useState } from 'react';
+import './SearchBar.css'
 
-function SearchBar(){
+function SearchBar(props){
+    const { value } = props
+    const { setValue } = props
+    const { storedSearch } = props
+    const { setStoredSearch } = props
 
-    const [searchValue, setSearchValue] = useState("")
+
 
     const handleChange = (e) => {
-        setSearchValue(e.target.value)
+        setValue(e.target.value)
     }
 
-    return <input defaultValue={searchValue} onChange={handleChange}/>
+    const handleClick = () => {
+        setStoredSearch(value)
+        console.log(storedSearch)
+    }
+
+    return (<div>
+        <input className='searchbar' value={value} onChange={handleChange}/>
+        <button onClick={handleClick}>Enter</button>
+    </div>)
+
 }
 
 export default SearchBar;
