@@ -2,18 +2,18 @@ import './SearchResults.css';
 
 function SearchResults(props){
     
-    const { storedSearch } = props;
+    // const { storedSearch } = props;
 
-    function test(){
-        console.log(storedSearch)
-    }
+    // function test(){
+    //     console.log(storedSearch)
+    // }
 
-    return (
-        <div>
-            <h2>Results:</h2>
-            <button onClick={test}>Test</button>
-        </div>
-    )
+    // return (
+    //     <div>
+    //         <h2>Results:</h2>
+    //         <button onClick={test}>Test</button>
+    //     </div>
+    // )
 
 }
 
