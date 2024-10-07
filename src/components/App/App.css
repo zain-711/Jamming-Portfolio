@@ -1,29 +1,77 @@
-h1 {
-    text-align: center;
-
-}
-
-h2{
-    text-align: center;
-}
-
+/* General Styles */
+.results-box, .playlist-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 400px;
+    color: white;
+  }
+  
+  .track-card {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: white;
+  }
+  
+  .track-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .add-button {
+    margin-top: 10px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+  }
+  
+  .add-button:hover {
+    background-color: white;
+    color: black;
+  }
+  
 .App {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    background: linear-gradient(288deg, rgba(255,255,255,1) 0%, rgba(2,0,36,1) 0%, rgba(30,215,96,1) 87%, rgba(57,220,114,1) 92%, rgba(52,219,111,1) 94%, rgba(54,219,112,1) 97%, rgba(47,218,108,1) 100%);
+    height: 100%;
 }
 
-.header {
+h2 {
+    text-align: center;
+    color: white;
+}
+
+.container.start {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content  : center;
+    align-content: center;
+    height: auto;
 }
 
-.subheading1{
-    margin-bottom: 40px;
+.LoginButton {
+    color: white;
+    font-size: x-large;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(0, 0, 0, 0.01);
+    border-radius: 6%;
+    align-self: center;
+    margin-top: 200px;
+    margin-bottom: 100%;
+    width: 200px;
+    max-width: 300px;
+    max-height: 200px;
+    box-shadow:  2px 4px 2px rgb(0, 0, 0);
 }
 
-.search{
-    display: flex;
-    
+.LoginButton:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.LoginButton:active {
+    top: 2px;
+    left: 1px;
+    box-shadow: none;
 }

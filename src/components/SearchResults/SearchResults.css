@@ -1,22 +1,48 @@
-.card .track-image {
-    width: 70px;
-    height: 70px;
+
+.add-button {
+    margin-top: auto; /* Push the button to the bottom */
+}
+  
+  .add-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
   }
   
+  .add-button:active {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .results-box {
+    width: 400px; /* Fixed width for the results box */
+    margin: 0 auto; /* Center the box horizontally */
+    padding: 20px; /* Padding inside the box */
+    border: 1px solid #ccc; /* Border around the box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between; /* Space between track info and button */
+    align-items: center; /* Center align items vertically */
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Faint border */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 10px; /* Spacing between items */
+    transition: background-color 0.2s ease; /* Smooth hover transition */
+}
+
+.result-item:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Light hover effect */
+}
+
+.track-info {
+    display: flex;
+    align-items: center; /* Align image and text vertically */
+}
 
 .track-image {
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .card {
-    display: flex;
-    align-items: center;
-    padding: 10px; 
-    margin-bottom: 10px;   
-  }
-  
-  .card-body {
-    flex: 1; 
-  }
-  
+    width: 50px; /* Set image width */
+    height: 50px; /* Set image height */
+    border-radius: 5px; /* Rounded corners for the image */
+    margin-right: 10px; /* Spacing between image and text */
+}

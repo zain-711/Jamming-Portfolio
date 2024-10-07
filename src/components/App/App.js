@@ -1,83 +1,85 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import SearchBar from "../Searchbar/SearchBar";
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from '../SearchResults/SearchResults';
-import { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container,} from 'react-bootstrap';
-
 
 function App() {
-  const [searchInput, setSearchInput] = useState("");
-  const [tracks, setTracks] = useState([]);
-  const clientId = '5917513ce3cd477294ff70aa27819777';
-  const redirectUri = 'http://localhost:3000/';
-  const scope = 'user-read-private user-read-email';
-  const [accessToken, setAccessToken] = useState(null);
+    const [searchInput, setSearchInput] = useState('');
+    const [tracks, setTracks] = useState([]);
+    const [accessToken, setAccessToken] = useState(null);
+    const clientId = '5917513ce3cd477294ff70aa27819777';
+    const redirectUri = 'http://localhost:3000/';
+    const scope = 'user-read-private user-read-email';
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.hash.substring(1));
-    const token = params.get('access_token');
-    if (token) {
-      setAccessToken(token);
-    }
-  }, []);
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        const token = params.get('access_token');
+        if (token) {
+            setAccessToken(token);
+        }
+    }, []);
 
-  const handleLogin = () => {
-    // Redirect to Spotify authorization endpoint
-    window.location.href = `https://accounts.spotify.com/authorize?${
-      new URLSearchParams({
-        response_type: 'token',
-        client_id: clientId,
-        redirect_uri: redirectUri,
-        scope: scope,
-      }).toString()
-    }`;
-  };
-  
-  const search = async () => {
-    if (!searchInput) return; // Prevent empty searches
-    console.log("Searching for: " + searchInput); // Log the search input
-
-    const searchParameters = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accessToken
-      }
+    const handleLogin = () => {
+        window.location.href = `https://accounts.spotify.com/authorize?${
+            new URLSearchParams({
+                response_type: 'token',
+                client_id: clientId,
+                redirect_uri: redirectUri,
+                scope: scope,
+            }).toString()
+        }`;
     };
 
-    try {
-      // Search for tracks
-      const tracksResponse = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=track`, searchParameters);
-      const tracksData = await tracksResponse.json();
+    const search = async () => {
+        if (!searchInput) return;
 
-      console.log(tracksData); // Log the tracks data
+        try {
+            const searchParameters = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + accessToken,
+                },
+            };
 
-      if (tracksData.tracks.items.length > 0) {
-        setTracks(tracksData.tracks.items); // Set the state for tracks
-      } else {
-        console.log("No tracks found");
-        setTracks([]); // Clear tracks if none are found
-      }
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
-  };
+            const tracksResponse = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=track`, searchParameters);
+            const tracksData = await tracksResponse.json();
+            setTracks(tracksData.tracks.items);
+        } catch (error) {
+            console.error('Error fetching data: ', error);
+        }
+    };
 
-  return (
-    <div className="App">
-      {!accessToken ? (
-        <button onClick={handleLogin}>Login with Spotify</button>
-      ) : (
-        <Container>
-          <SearchBar  searchHandler={search} storeSearch={setSearchInput}/> 
-          <SearchResults tracks={tracks} />
-        </Container>
+    return (
+        <div className="App">
+            {!accessToken ? (
+                <div id="button" className="container start">
+                    <Button onClick={handleLogin} className="LoginButton">
+                        Login with Spotify
+                    </Button>
+                </div>
+            ) : (
+                <Container fluid>
+                    <h1 style={{ textAlign: 'center', color: 'white', marginTop: 20, marginBottom: 30 }}>
+                        Add tracks to your playlist below!
+                    </h1>
 
-      )} 
-    </div>
-  );
+                    <Row className="justify-content-center">
+                        <Col md={6}>
+                            <SearchBar storeSearch={setSearchInput} searchHandler={search} />
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col md={10} className="mx-auto mt-4">
+                            <SearchResults tracks={tracks} />
+                        </Col>
+                    </Row>
+                </Container>
+            )}
+        </div>
+    );
 }
 
 export default App;
-
