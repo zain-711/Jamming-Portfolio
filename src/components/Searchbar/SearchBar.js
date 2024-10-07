@@ -1,14 +1,31 @@
-import { useState } from 'react';
+import './SearchBar.css';
+import { InputGroup, FormControl, Button } from 'react-bootstrap';
 
-function SearchBar(){
+function SearchBar(props) {
+    const { storeSearch, searchHandler } = props;
 
-    const [searchValue, setSearchValue] = useState("")
+    const handleInputChange = (e) => {
+        storeSearch(e.target.value);
+    };
 
-    const handleChange = (e) => {
-        setSearchValue(e.target.value)
-    }
-
-    return <input defaultValue={searchValue} onChange={handleChange}/>
+    return (
+        <div className="search-bar-container">
+            <InputGroup className='mb-3'>
+                <FormControl 
+                    placeholder="Search For Tracks"
+                    type='input'
+                    onKeyDown={e => {
+                        if (e.key === "Enter") {
+                            searchHandler();
+                        }
+                    }}
+                    onChange={handleInputChange}
+                    className="search-input"
+                />
+                <Button onClick={searchHandler} variant="primary" className="search-button">Search</Button>
+            </InputGroup>
+        </div>
+    );
 }
 
 export default SearchBar;
