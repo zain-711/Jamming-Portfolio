@@ -3,17 +3,15 @@ import SearchBar from "../Searchbar/SearchBar";
 import SearchResults from '../SearchResults/SearchResults';
 import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, InputGroup, FormControl, Button, Row, Card } from 'react-bootstrap';
+import { Container,} from 'react-bootstrap';
 
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
-  const [albums, setAlbums] = useState([]);
+  const [tracks, setTracks] = useState([]);
   const clientId = '5917513ce3cd477294ff70aa27819777';
   const redirectUri = 'http://localhost:3000/';
   const scope = 'user-read-private user-read-email';
-
-
   const [accessToken, setAccessToken] = useState(null);
 
   useEffect(() => {
@@ -35,76 +33,47 @@ function App() {
       }).toString()
     }`;
   };
-
-
-
-  async function search(){
-    console.log("search for " + searchInput) //confirming search is being fetched correctly 
-
+  
+  const search = async () => {
+    if (!searchInput) return; // Prevent empty searches
+    console.log("Searching for: " + searchInput); // Log the search input
 
     const searchParameters = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer' + accessToken
+        'Authorization': 'Bearer ' + accessToken
       }
+    };
+
+    try {
+      // Search for tracks
+      const tracksResponse = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=track`, searchParameters);
+      const tracksData = await tracksResponse.json();
+
+      console.log(tracksData); // Log the tracks data
+
+      if (tracksData.tracks.items.length > 0) {
+        setTracks(tracksData.tracks.items); // Set the state for tracks
+      } else {
+        console.log("No tracks found");
+        setTracks([]); // Clear tracks if none are found
+      }
+    } catch (error) {
+      console.error("Error fetching data: ", error);
     }
-
-    const artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', searchParameters)
-      .then(response => response.json())
-      .then(data => { console.log(data) })
-
-    console.log("Artist ID is " + artistID)
-    // Get request with artist ID gram all albums
-
-
-    const returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?inlcude_groups=album&market=US&limit=30', searchParameters)
-      .then(response =>  response.text())
-      .then(data => {
-        console.log(data)
-        setAlbums(data.items);
-      })
-    // Display albums
-
-    console.log(returnedAlbums)
-  }
+  };
 
   return (
     <div className="App">
       {!accessToken ? (
         <button onClick={handleLogin}>Login with Spotify</button>
       ) : (
-      
-      <Container>
-        <h1>Successfully logged in! </h1>
-        <InputGroup className='mb-3' size="lg">
-          <FormControl placeholder="Search For Artist"
-          type='input'
-          onKeyDown={e => {
-            if (e.key == "Enter"){
-              search()
-            }
-          }}
-          onChange={e => {
-            setSearchInput(e.target.value)
-          }}
-          />
-          <Button onClick={search}>Search</Button>
-        </InputGroup>
-
         <Container>
-          <Row className='mx-2 row row-cols-4'>
-            <Card>
-              <Card.Img src="#"/>
-              <Card.Body>
-                <Card.Title>
-                  Album Name
-                </Card.Title>
-              </Card.Body>
-            </Card>
-          </Row>
+          <SearchBar  searchHandler={search} storeSearch={setSearchInput}/> 
+          <SearchResults tracks={tracks} />
         </Container>
-      </Container>
+
       )} 
     </div>
   );
