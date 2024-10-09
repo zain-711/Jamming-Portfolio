@@ -1,3 +1,14 @@
+.title{
+  border-bottom: 3px solid rgba(0, 0, 0, 0.2) ;
+  margin-bottom: 40px;
+  border-radius: 4%;
+}
+
+.h2{
+  text-decoration: solid;
+  font-size: 2.5rem;
+}
+
 
 .add-button {
     margin-top: auto; /* Push the button to the bottom */
@@ -12,25 +23,22 @@
 }
   
 .results-box {
+  min-width: 50%;
   max-width: 700px; 
+  min-height: 1000px;
+  max-height: 1200px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc; 
+  border: 1px solid rgba(0, 0, 0, 0.2); 
   border-radius: 8px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  max-height: 600px;
   overflow: auto;
 
 }
 
 .result-item {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.1); 
     border-radius: 5px; 
-    margin-bottom: 10px;
     background-color: rgba(0, 0, 0, 0.15);
     color: rgba(255, 255, 255, 0.8);
     transition: background-color 0.2s ease; /* Smooth hover transition */
@@ -41,6 +49,7 @@
     background-color: rgba(0, 0, 0, 0.05); /* Light hover effect */
     color: rgba(255, 255, 255, 1);
 }
+
 .track-info {
     display: flex;
     align-items: center; 
@@ -51,4 +60,9 @@
     height: 50px; 
     border-radius: 5px;
     margin-right: 10px; 
+}
+
+.cardTitle {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
 }

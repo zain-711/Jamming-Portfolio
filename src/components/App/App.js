@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from '../SearchResults/SearchResults';
 import Playlists from '../Playlist/Playlist';
@@ -21,7 +21,7 @@ function App() {
         if (token) {
             setAccessToken(token);
         }
-    }, []);
+    }, []); // Getting the accessToken with spotiify's method on the first refresh of the app.
 
     const handleLogin = () => {
         window.location.href = `https://accounts.spotify.com/authorize?${
@@ -44,25 +44,25 @@ function App() {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + accessToken,
                 },
-            };
+            };  // Using accessToken to connect to api
 
             const tracksResponse = await fetch(`https://api.spotify.com/v1/search?q=${searchInput}&type=track`, searchParameters);
             const tracksData = await tracksResponse.json();
             setTracks(tracksData.tracks.items);
         } catch (error) {
             console.error('Error fetching data: ', error);
-        }
+        } // searching with user input using api and catching any errors.
     };
 
     return (
-        <div className="App">
+        <div className="App"> 
         {!accessToken ? (
           <button className="LoginButton" onClick={handleLogin}>Login with Spotify</button>
         ) : (
           <Container>
             <h1 style={{color: `white`, textAlign: 'center', marginTop: 20} }>Add to playlist below!</h1>
             <SearchBar  searchHandler={search} storeSearch={setSearchInput}/> 
-            <div className='boxes'>
+            <div className='middle-boxes'>
                 <SearchResults tracks={tracks} />
                 <Playlists playlist={playlist} />
             </div>
