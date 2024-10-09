@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from '../SearchResults/SearchResults';
+import Playlists from '../Playlist/Playlist';
 
 function App() {
     const [searchInput, setSearchInput] = useState('');
     const [tracks, setTracks] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const [playlist, setPlaylist] = useState([]);
     const clientId = '5917513ce3cd477294ff70aa27819777';
     const redirectUri = 'http://localhost:3000/';
     const scope = 'user-read-private user-read-email';
@@ -53,33 +56,22 @@ function App() {
 
     return (
         <div className="App">
-            {!accessToken ? (
-                <div id="button" className="container start">
-                    <Button onClick={handleLogin} className="LoginButton">
-                        Login with Spotify
-                    </Button>
-                </div>
-            ) : (
-                <Container fluid>
-                    <h1 style={{ textAlign: 'center', color: 'white', marginTop: 20, marginBottom: 30 }}>
-                        Add tracks to your playlist below!
-                    </h1>
-
-                    <Row className="justify-content-center">
-                        <Col md={6}>
-                            <SearchBar storeSearch={setSearchInput} searchHandler={search} />
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={10} className="mx-auto mt-4">
-                            <SearchResults tracks={tracks} />
-                        </Col>
-                    </Row>
-                </Container>
-            )}
-        </div>
+        {!accessToken ? (
+          <button className="LoginButton" onClick={handleLogin}>Login with Spotify</button>
+        ) : (
+          <Container>
+            <h1 style={{color: `white`, textAlign: 'center', marginTop: 20} }>Add to playlist below!</h1>
+            <SearchBar  searchHandler={search} storeSearch={setSearchInput}/> 
+            <div className='boxes'>
+                <SearchResults tracks={tracks} />
+                <Playlists playlist={playlist} />
+            </div>
+          </Container>
+        )} 
+      </div>
     );
 }
 
 export default App;
+
+

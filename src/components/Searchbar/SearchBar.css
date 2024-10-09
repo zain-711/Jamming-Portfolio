@@ -6,13 +6,11 @@
 .search-bar-container {
     display: flex;
     justify-content: center; /* Center the search bar */
-    margin-top: 20px; /* Space from the top */
+    margin-top: 40px; /* Space from the top */
 }
 
 .search-input {
     border-radius: 20px; /* Make the input rounded */
-    background-color: rgba(255, 255, 255, 0.9); 
-    border: 1px solid #007bff; 
     color: black;
     width: 300px; 
     height: 50px; 

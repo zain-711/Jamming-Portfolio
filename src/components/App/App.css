@@ -1,4 +1,39 @@
-/* General Styles */
+
+.container.start {
+  display: flex;
+  justify-content  : center;
+  align-content: center;
+  height: auto;
+}
+
+.LoginButton {
+  color: white;
+  font-size: x-large;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.01);
+  border-radius: 6%;
+  align-self: center;
+  margin-top: 200px;
+  margin-bottom: 100%;
+  width: 200px;
+  max-width: 300px;
+  max-height: 200px;
+  box-shadow:  2px 4px 2px rgb(0, 0, 0);
+}
+
+.LoginButton:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.LoginButton:active {
+  top: 2px;
+  left: 1px;
+  box-shadow: none;
+}
+
+
+
+
 .results-box, .playlist-box {
     background-color: rgba(255, 255, 255, 0.1);
     padding: 20px;
@@ -44,34 +79,12 @@ h2 {
     color: white;
 }
 
-.container.start {
-    display: flex;
-    justify-content  : center;
-    align-content: center;
-    height: auto;
-}
 
-.LoginButton {
-    color: white;
-    font-size: x-large;
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 2px solid rgba(0, 0, 0, 0.01);
-    border-radius: 6%;
-    align-self: center;
-    margin-top: 200px;
-    margin-bottom: 100%;
-    width: 200px;
-    max-width: 300px;
-    max-height: 200px;
-    box-shadow:  2px 4px 2px rgb(0, 0, 0);
-}
 
-.LoginButton:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.LoginButton:active {
-    top: 2px;
-    left: 1px;
-    box-shadow: none;
+.boxes{
+  display: flex;  
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 50px;
+  margin-bottom: 800px;
 }

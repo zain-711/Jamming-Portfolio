@@ -10,20 +10,18 @@ function SearchBar(props) {
 
     return (
         <div className="search-bar-container">
-            <InputGroup className='mb-3'>
-                <FormControl 
-                    placeholder="Search For Tracks"
-                    type='input'
-                    onKeyDown={e => {
-                        if (e.key === "Enter") {
-                            searchHandler();
-                        }
-                    }}
-                    onChange={handleInputChange}
-                    className="search-input"
-                />
-                <Button onClick={searchHandler} variant="primary" className="search-button">Search</Button>
-            </InputGroup>
+        <InputGroup className='mb-3' size="lg">
+          <FormControl placeholder="Search For Tracks"
+          type='input'
+          onKeyDown={e => {
+            if (e.key == "Enter"){
+              searchHandler()
+            }
+          }}
+          onChange={handleInputChange}
+          />
+          <Button onClick={searchHandler}>Search</Button>
+        </InputGroup>
         </div>
     );
 }

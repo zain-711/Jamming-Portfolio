@@ -1,0 +1,25 @@
+
+.playlists-container {
+    display: flex;
+    justify-content: center; /* Center the playlists box */
+  }
+  
+  .playlists-box {
+    width: 400px; /* Fixed width for playlists box */
+    margin: 10px; /* Margin around the box */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Faint border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+    padding: 15px; /* Padding inside the box */
+  }
+  
+  .playlist-item {
+    padding: 10px; /* Padding for each item */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Bottom border for items */
+    transition: background 0.3s; /* Transition for hover effect */
+  }
+  
+  .playlist-item:hover {
+    background: rgba(255, 255, 255, 0.2); /* Hover effect */
+  }
+  
