@@ -5,14 +5,12 @@
 }
 .search-bar-container {
     display: flex;
-    justify-content: center; /* Center the search bar */
-    margin-top: 20px; /* Space from the top */
+    justify-content: center; 
+    margin-top: 40px;
 }
 
 .search-input {
-    border-radius: 20px; /* Make the input rounded */
-    background-color: rgba(255, 255, 255, 0.9); 
-    border: 1px solid #007bff; 
+    border-radius: 20px; 
     color: black;
     width: 300px; 
     height: 50px; 
@@ -20,10 +18,9 @@
 }
 
 .search-button {
-    border-radius: 20px; /* Make the button rounded */
-    background-color: #007bff; /* Blue background color */
-    border: none; /* Remove border */
-    height: 50px; /* Match input height */
-    padding: 0 20px; /* Add horizontal padding */
-    font-weight: bold; /* Make button text bold */
+    border-radius: 20px;
+    border: none;
+    height: 50px;
+    padding: 0 20px; 
+    font-weight: bold; 
 }

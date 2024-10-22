@@ -1,4 +1,61 @@
-/* General Styles */
+html, body {
+  min-height: 100%;
+  min-width: 100%;
+}
+
+body{
+  background: linear-gradient(135deg, rgba(30,215,96,1) 0%, rgba(0,0,0,1) 75%);
+  background-repeat: no-repeat;
+  min-height: 100%;
+}
+  
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+}
+
+
+.container.start {
+  display: flex;
+  justify-content  : center;
+  align-content: center;
+  height: auto;
+}
+
+.LoginButton {
+  color: white;
+  font-size: x-large;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.01);
+  border-radius: 6%;
+  align-self: center;
+  margin-top: 200px;
+  margin-bottom: 100%;
+  width: 300px;
+  max-width: 400px;
+  height: 100px;
+  box-shadow:  2px 4px 2px rgb(0, 0, 0);
+}
+
+.LoginButton:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.LoginButton:active {
+  top: 2px;
+  left: 1px;
+  box-shadow: none;
+}
+
+
+
+
 .results-box, .playlist-box {
     background-color: rgba(255, 255, 255, 0.1);
     padding: 20px;
@@ -31,47 +88,13 @@
     background-color: white;
     color: black;
   }
-  
-.App {
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(288deg, rgba(255,255,255,1) 0%, rgba(2,0,36,1) 0%, rgba(30,215,96,1) 87%, rgba(57,220,114,1) 92%, rgba(52,219,111,1) 94%, rgba(54,219,112,1) 97%, rgba(47,218,108,1) 100%);
-    height: 100%;
-}
 
-h2 {
-    text-align: center;
-    color: white;
-}
 
-.container.start {
-    display: flex;
-    justify-content  : center;
-    align-content: center;
-    height: auto;
-}
 
-.LoginButton {
-    color: white;
-    font-size: x-large;
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 2px solid rgba(0, 0, 0, 0.01);
-    border-radius: 6%;
-    align-self: center;
-    margin-top: 200px;
-    margin-bottom: 100%;
-    width: 200px;
-    max-width: 300px;
-    max-height: 200px;
-    box-shadow:  2px 4px 2px rgb(0, 0, 0);
-}
+.middle-boxes{
+  display: flex;  
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 50px;
 
-.LoginButton:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.LoginButton:active {
-    top: 2px;
-    left: 1px;
-    box-shadow: none;
 }

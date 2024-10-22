@@ -1,47 +1,30 @@
 import './SearchResults.css';
-import { Container, Card, ListGroup, Button } from 'react-bootstrap';
+import { Container, Card, Row, Button } from 'react-bootstrap';
 
 function SearchResults({ tracks, addTrackToPlaylist }) {
   return (
-    <Container className="mt-4 d-flex">
-      {/* Search Results Box */}
-      <Card className="results-box" style={{ width: '400px', marginRight: '20px' }}>
-        <Card.Header>Search Results</Card.Header>
-        <ListGroup variant="flush">
-          {tracks.map((track) => (
-            <ListGroup.Item key={track.id} className="result-item">
-              <div className="track-info">
-                <img
-                  src={track.image || 'default-image-path.jpg'}
-                  alt={track.name}
-                  className="track-image"
-                />
-                <div>
-                  <strong>{track.name}</strong>
-                  <div>{track.artists.join(', ')}</div>
+    <div className='results-box'>
+      <div className="title">
+        <h2 className='h2'>Results</h2>
+      </div>    
+      <Container>
+        <Container>
+          <Row className='mx-2 row row-cols-1'> {/* Changed to row-cols-1 for single column layout */}
+            {tracks.map(track => (
+              <Card key={track.id} className="d-flex flex-row align-items-center mb-3 result-item"> {/* Flex row layout */}
+                <Card.Img src={track.album.images[0]?.url} alt={track.name} className="track-image" />
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title className='cardTitle'>{track.name}</Card.Title>
+                  <Card.Text><strong>Artists: </strong>{track.artists.map(artist => artist.name).join(", ")}</Card.Text>
+                  <Card.Text><strong>Album: </strong>{track.album.name}</Card.Text>
                   <Button onClick={() => addTrackToPlaylist(track)}>Add to Playlist</Button>
-                </div>
-              </div>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Card>
-
-      {/* Playlists Box */}
-      <Card className="playlists-box" style={{ width: '400px' }}>
-        <Card.Header>Your Playlists</Card.Header>
-        <ListGroup variant="flush">
-          {/* Fetch your playlists here */}
-          {yourPlaylists.map((playlist) => (
-            <ListGroup.Item key={playlist.id}>
-              <a href={playlist.link} target="_blank" rel="noopener noreferrer">
-                {playlist.name}
-              </a>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Card>
-    </Container>
+                </Card.Body>
+              </Card>
+            ))}
+          </Row>
+        </Container>
+      </Container>  
+    </div>
   );
 }
 
