@@ -1,39 +1,35 @@
-// Playlists.js
 import './Playlists.css';
-import { Container, Card, ListGroup } from 'react-bootstrap';
+import { Container, Card, Row, Button } from 'react-bootstrap';
 
-function Playlists({ playlists }) {
+function Playlists(props) {
+
+  const { playlist, playlistName, deleteTrack  } = props
+
+  const handleInputChange = (e) =>{
+    playlistName(e.target.value)
+  }
+
   return (
-    <Container className="playlists-container mt-4">
-      {/* <Card className="playlists-box">
-        <Card.Header>Your Playlists</Card.Header>
-        <ListGroup variant="flush">
-          {playlists.map((playlist) => (
-            <ListGroup.Item key={playlist.id} className="playlist-item">
-              <strong>{playlist.name}</strong>
-              <div>{playlist.description}</div>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Card> */}
-    </Container>
+    <div className="playlists-container">
+      <div className="title">
+        <input className='playlist-title' placeholder='New Playlist' onChange={handleInputChange}/>
+      </div>    
+        <Container>
+          <Row className='mx-2 row row-cols-1'> 
+            {playlist.map(playlist => (
+              <Card key={playlist.id} className="d-flex flex-row align-items-center mb-3 result-item"> 
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title className='cardTitle'>{playlist.name}</Card.Title>
+                  <Card.Text><strong>Artists: </strong>{playlist.artists}</Card.Text>
+                  <Button className='delete-button' onClick={deleteTrack}>Delete</Button>
+                </Card.Body>
+              </Card>
+            ))}
+          </Row>
+        </Container>
+    </div>
   );
 }
 
 export default Playlists;
 
-
-//       // {/* Playlists Box */}
-//       // <Card className="playlists-box" style={{ width: '400px' }}>
-//       //   <Card.Header>Your Playlists</Card.Header>
-//       //   <ListGroup variant="flush">
-//       //     {/* Fetch your playlists here */}
-//       //     {Playlists.map((playlist) => (
-//       //       <ListGroup.Item key={playlist.id}>
-//       //         <a href={playlist.link} target="_blank" rel="noopener noreferrer">
-//       //           {playlist.name}
-//       //         </a>
-//       //       </ListGroup.Item>
-//       //     ))}
-//       //   </ListGroup>
-//       // </Card>

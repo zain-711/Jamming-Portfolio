@@ -15,7 +15,7 @@ function SearchResults({ tracks, addTrackToPlaylist }) {
                 <Card.Img src={track.album.images[0]?.url} alt={track.name} className="track-image" />
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className='cardTitle'>{track.name}</Card.Title>
-                  <Card.Text><strong>Artsts: </strong>{track.artists.map(artist => artist.name).join(", ")}</Card.Text>
+                  <Card.Text><strong>Artists: </strong>{track.artists.map(artist => artist.name).join(", ")}</Card.Text>
                   <Card.Text><strong>Album: </strong>{track.album.name}</Card.Text>
                   <Button onClick={() => addTrackToPlaylist(track)}>Add to Playlist</Button>
                 </Card.Body>

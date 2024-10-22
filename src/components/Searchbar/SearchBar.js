@@ -14,7 +14,7 @@ function SearchBar(props) {
           <FormControl placeholder="Search For Tracks"
           type='input'
           onKeyDown={e => {
-            if (e.key == "Enter"){
+            if (e.key === "Enter"){
               searchHandler()
             }
           }}

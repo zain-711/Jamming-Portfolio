@@ -11,6 +11,7 @@ function App() {
     const [tracks, setTracks] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [playlist, setPlaylist] = useState([]);
+    const [newPlaylistName, setNewPlaylistName] = useState('');
     const clientId = '5917513ce3cd477294ff70aa27819777';
     const redirectUri = 'http://localhost:3000/';
     const scope = 'user-read-private user-read-email';
@@ -22,6 +23,10 @@ function App() {
             setAccessToken(token);
         }
     }, []); // Getting the accessToken with spotiify's method on the first refresh of the app.
+
+    useEffect(()=>{
+        console.log(playlist)
+    }, [playlist])
 
     const handleLogin = () => {
         window.location.href = `https://accounts.spotify.com/authorize?${
@@ -54,6 +59,18 @@ function App() {
         } // searching with user input using api and catching any errors.
     };
 
+    const addTrackToPlaylist = (track) => {
+        setPlaylist([
+            ...playlist, 
+            {id: track.id, name: track.name, artists: track.artists.map(artist => artist.name).join(", ")}
+        ])
+    }
+
+    const removeTrack = () => {
+        setPlaylist(playlist.filter(p => p.id !== playlist.id))
+    }
+
+
     return (
         <div className="App"> 
         {!accessToken ? (
@@ -63,8 +80,8 @@ function App() {
             <h1 style={{color: `white`, textAlign: 'center', marginTop: 20} }>Add to playlist below!</h1>
             <SearchBar  searchHandler={search} storeSearch={setSearchInput}/> 
             <div className='middle-boxes'>
-                <SearchResults tracks={tracks} />
-                <Playlists playlist={playlist} />
+                <SearchResults tracks={tracks} addTrackToPlaylist={addTrackToPlaylist} />
+                <Playlists playlist={playlist} playlistName={setNewPlaylistName} deleteTrack={removeTrack} />
             </div>
           </Container>
         )} 
@@ -74,4 +91,5 @@ function App() {
 
 export default App;
 
-
+// Delete button
+// Create save to spotfy button. -- saves the playlist to a playlist list add adds to spotify account.
