@@ -3,10 +3,10 @@ import { Container, Card, Row, Button } from 'react-bootstrap';
 
 function Playlists(props) {
 
-  const { playlist, playlistName, deleteTrack  } = props
+  const {  playlist, setplaylistName, deleteTrack, savePlaylist } = props
 
   const handleInputChange = (e) =>{
-    playlistName(e.target.value)
+    setplaylistName(e.target.value)
   }
 
   return (
@@ -21,11 +21,12 @@ function Playlists(props) {
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className='cardTitle'>{playlist.name}</Card.Title>
                   <Card.Text><strong>Artists: </strong>{playlist.artists}</Card.Text>
-                  <Button className='delete-button' onClick={deleteTrack}>Delete</Button>
+                  <Button className='delete-button' onClick={() => {deleteTrack(playlist.id)}}>Delete</Button>
                 </Card.Body>
               </Card>
             ))}
           </Row>
+          <Button onClick={savePlaylist}>Save to Spotify</Button>
         </Container>
     </div>
   );

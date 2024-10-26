@@ -12,32 +12,32 @@ function App() {
     const [accessToken, setAccessToken] = useState(null);
     const [playlist, setPlaylist] = useState([]);
     const [newPlaylistName, setNewPlaylistName] = useState('');
+    const [uris, setUris] = useState([]);
     const clientId = '5917513ce3cd477294ff70aa27819777';
     const redirectUri = 'http://localhost:3000/';
-    const scope = 'user-read-private user-read-email';
+    const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.hash.substring(1));
         const token = params.get('access_token');
         if (token) {
             setAccessToken(token);
+            window.history.replaceState({}, document.title, "/");
         }
-    }, []); // Getting the accessToken with spotiify's method on the first refresh of the app.
-
-    useEffect(()=>{
-        console.log(playlist)
-    }, [playlist])
+    }, []); // Getting the accessToken with spotify's method on the first refresh of the app.
 
     const handleLogin = () => {
-        window.location.href = `https://accounts.spotify.com/authorize?${
-            new URLSearchParams({
-                response_type: 'token',
-                client_id: clientId,
-                redirect_uri: redirectUri,
-                scope: scope,
-            }).toString()
-        }`;
-    };
+      const authUrl = `https://accounts.spotify.com/authorize?${
+          new URLSearchParams({
+              response_type: 'token',
+              client_id: clientId,
+              redirect_uri: redirectUri,
+              scope: scope,
+              show_dialog: 'true', // Forces the login dialog to show every time
+          }).toString()
+      }`;
+      window.location.href = authUrl;
+  };
 
     const search = async () => {
         if (!searchInput) return;
@@ -59,15 +59,50 @@ function App() {
         } // searching with user input using api and catching any errors.
     };
 
+    const savePlaylist = async () => {
+      if (!newPlaylistName || uris.length === 0 || !accessToken) return;
+  
+      const headers = { Authorization: `Bearer ${accessToken}` };
+  
+      try {
+          // Step 1: Get the user's Spotify ID
+          const userResponse = await fetch('https://api.spotify.com/v1/me', { headers });
+          const userData = await userResponse.json();
+          const userId = userData.id;
+  
+          // Step 2: Create a new playlist
+          const createPlaylistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+              method: 'POST',
+              headers,
+              body: JSON.stringify({ name: newPlaylistName, public: false }),
+          });
+          const playlistData = await createPlaylistResponse.json();
+          const playlistId = playlistData.id;
+  
+          // Step 3: Add tracks to the new playlist
+          await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+              method: 'POST',
+              headers,
+              body: JSON.stringify({ uris }),
+          });
+  
+          alert("Playlist saved to Spotify!");
+      } catch (error) {
+          console.error("Error saving playlist: ", error);
+      }
+  };
+
     const addTrackToPlaylist = (track) => {
         setPlaylist([
             ...playlist, 
-            {id: track.id, name: track.name, artists: track.artists.map(artist => artist.name).join(", ")}
+            {id: track.id, name: track.name, artists: track.artists.map(artist => artist.name).join(", "),}
         ])
+        setUris([...uris,  track.uri])
     }
 
-    const removeTrack = () => {
-        setPlaylist(playlist.filter(p => p.id !== playlist.id))
+    const removeTrack = (trackId) => {
+        setPlaylist(playlist.filter(p => p.id !== trackId))
+        setUris(uris.filter(uri => uri !== `spotify:track:${trackId}`))
     }
 
 
@@ -81,7 +116,7 @@ function App() {
             <SearchBar  searchHandler={search} storeSearch={setSearchInput}/> 
             <div className='middle-boxes'>
                 <SearchResults tracks={tracks} addTrackToPlaylist={addTrackToPlaylist} />
-                <Playlists playlist={playlist} playlistName={setNewPlaylistName} deleteTrack={removeTrack} />
+                <Playlists playlist={playlist} name={newPlaylistName} setplaylistName={setNewPlaylistName} deleteTrack={removeTrack} savePlaylist={savePlaylist}/>
             </div>
           </Container>
         )} 
@@ -90,6 +125,3 @@ function App() {
 }
 
 export default App;
-
-// Delete button
-// Create save to spotfy button. -- saves the playlist to a playlist list add adds to spotify account.
