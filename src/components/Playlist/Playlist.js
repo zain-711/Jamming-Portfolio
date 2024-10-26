@@ -3,7 +3,7 @@ import { Container, Card, Row, Button } from 'react-bootstrap';
 
 function Playlists(props) {
 
-  const {  playlist, name, setplaylistName, deleteTrack, savePlaylist } = props
+  const {  playlist, setplaylistName, deleteTrack, savePlaylist } = props
 
   const handleInputChange = (e) =>{
     setplaylistName(e.target.value)

@@ -12,7 +12,7 @@ function App() {
     const [accessToken, setAccessToken] = useState(null);
     const [playlist, setPlaylist] = useState([]);
     const [newPlaylistName, setNewPlaylistName] = useState('');
-    const [uris, setUris] = useState([])
+    const [uris, setUris] = useState([]);
     const clientId = '5917513ce3cd477294ff70aa27819777';
     const redirectUri = 'http://localhost:3000/';
     const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
@@ -25,10 +25,6 @@ function App() {
             window.history.replaceState({}, document.title, "/");
         }
     }, []); // Getting the accessToken with spotify's method on the first refresh of the app.
-
-    useEffect(()=>{
-        console.log(uris)
-    }, [playlist])
 
     const handleLogin = () => {
       const authUrl = `https://accounts.spotify.com/authorize?${
@@ -129,5 +125,3 @@ function App() {
 }
 
 export default App;
-
-// Create save to spotfy button. -- saves the playlist to a playlist list add adds to spotify account.
