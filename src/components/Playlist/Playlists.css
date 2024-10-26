@@ -28,7 +28,11 @@
 
   }
   
-.delete-button{
-  width: 40%;
-  
- }
+  .delete-button {
+    margin-top: auto; /* Push the button to the bottom */
+    width: 40px;
+    height: 40px;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+}

@@ -21,7 +21,7 @@ function Playlists(props) {
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className='cardTitle'>{playlist.name}</Card.Title>
                   <Card.Text><strong>Artists: </strong>{playlist.artists}</Card.Text>
-                  <Button className='delete-button' onClick={() => {deleteTrack(playlist.id)}}>Delete</Button>
+                  <Button className='delete-button' onClick={() => {deleteTrack(playlist.id)}}>-</Button>
                 </Card.Body>
               </Card>
             ))}

@@ -18,6 +18,11 @@ function App() {
     const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
 
     useEffect(() => {
+        document.title = 'Jamming';
+    }, []);
+    
+
+    useEffect(() => {
         const params = new URLSearchParams(window.location.hash.substring(1));
         const token = params.get('access_token');
         if (token) {
@@ -112,7 +117,7 @@ function App() {
           <button className="LoginButton" onClick={handleLogin}>Login with Spotify</button>
         ) : (
           <Container>
-            <h1 style={{color: `white`, textAlign: 'center', marginTop: 20} }>Add to playlist below!</h1>
+            <h1 style={{color: `white`, textAlign: 'center', marginTop: 20} }>Jamming</h1>
             <SearchBar  searchHandler={search} storeSearch={setSearchInput}/> 
             <div className='middle-boxes'>
                 <SearchResults tracks={tracks} addTrackToPlaylist={addTrackToPlaylist} />
