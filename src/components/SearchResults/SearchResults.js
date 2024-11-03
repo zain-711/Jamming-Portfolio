@@ -17,7 +17,7 @@ function SearchResults({ tracks, addTrackToPlaylist }) {
                   <Card.Title className='cardTitle'>{track.name}</Card.Title>
                   <Card.Text><strong>Artists: </strong>{track.artists.map(artist => artist.name).join(", ")}</Card.Text>
                   <Card.Text><strong>Album: </strong>{track.album.name}</Card.Text>
-                  <Button onClick={() => addTrackToPlaylist(track)}>Add to Playlist</Button>
+                  <Button className='add-button' onClick={() => addTrackToPlaylist(track)}>+</Button>
                 </Card.Body>
               </Card>
             ))}

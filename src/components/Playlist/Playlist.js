@@ -10,7 +10,7 @@ function Playlists(props) {
   }
 
   return (
-    <div className="playlists-container">
+    <div className="playlist-container">
       <div className="title">
         <input className='playlist-title' placeholder='New Playlist' onChange={handleInputChange}/>
       </div>    
@@ -21,7 +21,7 @@ function Playlists(props) {
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className='cardTitle'>{playlist.name}</Card.Title>
                   <Card.Text><strong>Artists: </strong>{playlist.artists}</Card.Text>
-                  <Button className='delete-button' onClick={() => {deleteTrack(playlist.id)}}>Delete</Button>
+                  <Button className='delete-button' onClick={() => {deleteTrack(playlist.id)}}>-</Button>
                 </Card.Body>
               </Card>
             ))}
