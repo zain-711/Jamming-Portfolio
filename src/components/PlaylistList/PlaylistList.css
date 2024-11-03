@@ -1,0 +1,41 @@
+.title{
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2) ;
+    margin-bottom: 40px;
+    border-radius: 4%;
+  }
+  
+  .h2{
+    text-decoration: solid;
+    font-size: 2.5rem;
+    color: white;
+  }
+  
+  .playlistsList-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 45%;
+    max-width: 10000px; 
+    min-height: 400px;
+    max-height: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2); 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 100px;
+  }
+
+  .playlist-image {
+    width: 50px; 
+    height: 50px; 
+    border-radius: 5px;
+    margin-right: 10px; 
+}
+
+.playlistItem{
+    width: 25%;
+    margin: 10px;
+    background-color:rgba(0, 0, 0, 0.5);
+}

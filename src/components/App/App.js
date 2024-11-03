@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap';
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from '../SearchResults/SearchResults';
 import Playlists from '../Playlist/Playlist';
+import PlaylistList from '../PlaylistList/PlaylistList'
 
 function App() {
     const [searchInput, setSearchInput] = useState('');
@@ -13,9 +14,10 @@ function App() {
     const [playlist, setPlaylist] = useState([]);
     const [newPlaylistName, setNewPlaylistName] = useState('');
     const [uris, setUris] = useState([]);
+    const [playlistList, setPlaylistList] = useState([]);
     const clientId = '5917513ce3cd477294ff70aa27819777';
     const redirectUri = 'http://localhost:3000/';
-    const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
+    const scope = 'user-read-private user-read-email playlist-read-private playlist-modify-public playlist-modify-private';
 
     useEffect(() => {
         document.title = 'Jamming';
@@ -30,6 +32,32 @@ function App() {
             window.history.replaceState({}, document.title, "/");
         }
     }, []); // Getting the accessToken with spotify's method on the first refresh of the app.
+ 
+    const getUserPlaylist = async () => {
+        if (!accessToken) return;
+    
+        try {
+            const headers = { Authorization: `Bearer ${accessToken}` };
+            const response = await fetch('https://api.spotify.com/v1/me/playlists', { headers });
+            const data = await response.json();
+            console.log("Full response from Spotify:", data);  // Log the full response
+            if (data.items && data.items.length > 0) {
+                setPlaylistList(data.items);
+            } else {
+                console.log("No playlists found in the response.");
+            }
+        } catch (error) {
+            console.error("Error fetching user's playlists: ", error);
+        }
+    };
+
+    useEffect(() => {
+        if (accessToken) {
+            console.log("Calling getUserPlaylist");  // Debugging
+            getUserPlaylist();
+        }
+    }, [accessToken]);
+
 
     const handleLogin = () => {
       const authUrl = `https://accounts.spotify.com/authorize?${
@@ -92,10 +120,16 @@ function App() {
           });
   
           alert("Playlist saved to Spotify!");
+          getUserPlaylist()
+          setNewPlaylistName('');
+          setUris([]); //cleanup of all the edited states
       } catch (error) {
           console.error("Error saving playlist: ", error);
       }
   };
+
+  
+
 
     const addTrackToPlaylist = (track) => {
         setPlaylist([
@@ -110,7 +144,6 @@ function App() {
         setUris(uris.filter(uri => uri !== `spotify:track:${trackId}`))
     }
 
-
     return (
         <div className="App"> 
         {!accessToken ? (
@@ -121,7 +154,10 @@ function App() {
             <SearchBar  searchHandler={search} storeSearch={setSearchInput}/> 
             <div className='middle-boxes'>
                 <SearchResults tracks={tracks} addTrackToPlaylist={addTrackToPlaylist} />
-                <Playlists playlist={playlist} name={newPlaylistName} setplaylistName={setNewPlaylistName} deleteTrack={removeTrack} savePlaylist={savePlaylist}/>
+                <Playlists playlist={playlist} name={newPlaylistName} setplaylistName={setNewPlaylistName} deleteTrack={removeTrack} savePlaylist={savePlaylist}/> 
+            </div>
+            <div>
+                <PlaylistList playlists = {playlistList}/>
             </div>
           </Container>
         )} 

@@ -10,7 +10,7 @@ function Playlists(props) {
   }
 
   return (
-    <div className="playlists-container">
+    <div className="playlist-container">
       <div className="title">
         <input className='playlist-title' placeholder='New Playlist' onChange={handleInputChange}/>
       </div>    
