@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
-import SearchBar from "../SearchBar/SearchBar";
-import SearchResults from '../SearchResults/SearchResults';
-import Playlists from '../Playlist/Playlist';
-import PlaylistList from '../PlaylistList/PlaylistList'
+import SearchBar from "../SearchBar/SearchBar.js";
+import SearchResults from '../SearchResults/SearchResults.js';
+import Playlists from '../Playlist/Playlist.js';
+import PlaylistList from '../PlaylistList/PlaylistList.js'
 
 function App() {
     const [searchInput, setSearchInput] = useState('');
