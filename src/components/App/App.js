@@ -1,4 +1,4 @@
-import React, {  useCallback, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
@@ -33,30 +33,32 @@ function App() {
         }
     }, []); // Getting the accessToken with spotify's method on the first refresh of the app.
  
-    const getUserPlaylist = useCallback(async () => {
-        if (!accessToken) return;
-    
-        try {
-            const headers = { Authorization: `Bearer ${accessToken}` };
-            const response = await fetch('https://api.spotify.com/v1/me/playlists', { headers });
-            const data = await response.json();
-            console.log("Full response from Spotify:", data);  // Log the full response
-            if (data.items && data.items.length > 0) {
-                setPlaylistList(data.items);
-            } else {
-                console.log("No playlists found in the response.");
-            }
-        } catch (error) {
-            console.error("Error fetching user's playlists: ", error);
-        }
-    });
 
     useEffect(() => {
+        const fetchUserPlaylist = async () => {
+            if (!accessToken) return;
+    
+            try {
+                const headers = { Authorization: `Bearer ${accessToken}` };
+                const response = await fetch('https://api.spotify.com/v1/me/playlists', { headers });
+                const data = await response.json();
+                console.log("Full response from Spotify:", data);
+                
+                if (data.items && data.items.length > 0) {
+                    setPlaylistList(data.items);
+                } else {
+                    console.log("No playlists found in the response.");
+                }
+            } catch (error) {
+                console.error("Error fetching user's playlists: ", error);
+            }
+        };
+    
         if (accessToken) {
-            console.log("Calling getUserPlaylist");  // Debugging
-            getUserPlaylist();
+            console.log("Calling getUserPlaylist");
+            fetchUserPlaylist();
         }
-    }, [accessToken, getUserPlaylist]);
+    }, [accessToken]);
 
 
     const handleLogin = () => {
@@ -71,6 +73,25 @@ function App() {
       }`;
       window.location.href = authUrl;
   };
+  
+  const getUserPlaylist = async () => {
+    if (!accessToken) return;
+
+    try {
+        const headers = { Authorization: `Bearer ${accessToken}` };
+        const response = await fetch('https://api.spotify.com/v1/me/playlists', { headers });
+        const data = await response.json();
+        console.log("Full response from Spotify:", data);  // Log the full response
+        if (data.items && data.items.length > 0) {
+            setPlaylistList(data.items);
+        } else {
+            console.log("No playlists found in the response.");
+        }
+    } catch (error) {
+        console.error("Error fetching user's playlists: ", error);
+    }
+};
+
 
     const search = async () => {
         if (!searchInput) return;
