@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useCallback, useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
@@ -33,7 +33,7 @@ function App() {
         }
     }, []); // Getting the accessToken with spotify's method on the first refresh of the app.
  
-    const getUserPlaylist = async () => {
+    const getUserPlaylist = useCallback(async () => {
         if (!accessToken) return;
     
         try {
@@ -49,7 +49,7 @@ function App() {
         } catch (error) {
             console.error("Error fetching user's playlists: ", error);
         }
-    };
+    });
 
     useEffect(() => {
         if (accessToken) {
