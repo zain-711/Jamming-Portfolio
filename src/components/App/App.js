@@ -56,7 +56,7 @@ function App() {
             console.log("Calling getUserPlaylist");  // Debugging
             getUserPlaylist();
         }
-    }, [accessToken]);
+    }, [accessToken, getUserPlaylist]);
 
 
     const handleLogin = () => {
